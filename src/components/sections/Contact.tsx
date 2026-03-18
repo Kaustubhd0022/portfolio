@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Send, Sparkles } from 'lucide-react'
+import { EXTERNAL_LINKS } from '@/config/links'
 
 export const Contact = () => {
   const [email, setEmail] = useState('')
@@ -65,8 +66,8 @@ export const Contact = () => {
       <footer className="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-secondary text-sm">
         <p>© {new Date().getFullYear()} Kaustubh Deshmukh. All rights reserved.</p>
         <div className="flex gap-8">
-          <a href="https://linkedin.com/in/kaustubhd0022" target="_blank" className="hover:text-white transition-colors">LinkedIn</a>
-          <a href="mailto:kaustubhd0022@gmail.com" className="hover:text-white transition-colors">Email</a>
+          <a href={EXTERNAL_LINKS.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+          <a href={EXTERNAL_LINKS.social.email} className="hover:text-white transition-colors">Email</a>
         </div>
       </footer>
     </section>

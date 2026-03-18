@@ -16,16 +16,14 @@ export default function Home() {
       <Hero />
       <Metrics />
       <Experience />
+      <CaseStudies />
       <ProductThinking />
       <PRDs />
+      <AISystemsLab />
+      <Projects />
       <Education />
-      <div className="space-y-32 mb-32">
-        <CaseStudies />
-        <AISystemsLab />
-        <Projects />
-        <About />
-        <Contact />
-      </div>
+      <About />
+      <Contact />
     </>
   );
 }

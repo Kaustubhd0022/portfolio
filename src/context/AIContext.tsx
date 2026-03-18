@@ -32,9 +32,14 @@ export const AIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         body: JSON.stringify({ prompt, context }),
       })
       const data = await res.json()
-      setContent({ title, body: data.insight || 'No insight generated.', isLoading: false })
-    } catch (err) {
-      setContent({ title, body: 'Error: Could not reach the AI strategist.', isLoading: false })
+      
+      if (data.error) {
+        setContent({ title, body: `Backend Error: ${data.error}`, isLoading: false })
+      } else {
+        setContent({ title, body: data.insight || 'No insight generated.', isLoading: false })
+      }
+    } catch (err: any) {
+      setContent({ title, body: `Network Error: Could not reach the AI strategist. ${err?.message || ''}`, isLoading: false })
     }
   }
 

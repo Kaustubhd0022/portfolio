@@ -5,6 +5,7 @@ import { Navbar } from "@/components/ui/Navbar";
 import { AIProvider } from "@/context/AIContext";
 import { AIPanel } from "@/components/ui/AIPanel";
 import { ParallaxBackground } from "@/components/ui/ParallaxBackground";
+import { PortfolioAssistant } from "@/components/ui/PortfolioAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
             </main>
           </ParallaxBackground>
           <AIPanel />
+          <PortfolioAssistant />
         </AIProvider>
       </body>
     </html>

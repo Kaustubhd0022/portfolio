@@ -1,33 +1,44 @@
 import { NextResponse } from 'next/server'
-import { getOpenAIClient } from '@/lib/openai'
+import Groq from 'groq-sdk'
+import { portfolioContext } from '@/data/portfolioContext'
+
+// Exported runtime removed to default to Node.js
+
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+})
 
 export async function POST(req: Request) {
   try {
-    const { prompt, context } = await req.json()
-    const openai = getOpenAIClient()
+    const body = await req.json()
+    const { prompt, context } = body
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
+    const completion = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
       messages: [
         {
           role: 'system',
-          content: 'You are a Senior Product Manager AI Assistant. Your goal is to provide deep, actionable product insights or improvements for the given case study or idea. Focus on metrics, user psychology, and technical feasibility.',
+          content: `You are Kaustubh's Senior Product Manager AI Assistant. 
+Your goal is to provide deep, actionable product insights or improvements for the given case study or idea.
+Focus on metrics, user psychology, and technical feasibility. 
+Context about Kaustubh: ${portfolioContext}
+Keep your response professional, insightful, and under 150 words.`,
         },
         {
           role: 'user',
-          content: `Context: ${context}\n\nTask: ${prompt}`,
+          content: `Context of the specific project/card: ${context}\n\nTask/Question: ${prompt}`,
         },
       ],
       temperature: 0.7,
     })
 
-    const insight = response.choices[0].message.content
+    const insight = completion.choices[0]?.message?.content || "No insight could be generated at this time."
 
     return NextResponse.json({ insight })
   } catch (error: any) {
-    console.error('AI API Error:', error)
+    console.error('Groq AI Error:', error)
     return NextResponse.json(
-      { error: error.message || 'Something went wrong' },
+      { error: error.message || 'Something went wrong connecting to Groq AI' },
       { status: 500 }
     )
   }

@@ -5,13 +5,14 @@ import { motion } from 'framer-motion'
 import { ExternalLink, Tag, Briefcase, Sparkles, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import { useAI } from '@/context/AIContext'
+import { EXTERNAL_LINKS } from '@/config/links'
 
 const projects = [
   {
     title: 'NomadAI',
     description: 'AI travel companion that generates personalized itineraries based on user vibes and budget.',
     tags: ['Next.js', 'OpenAI', 'Google Maps API'],
-    link: 'https://nomad-ai.example.com',
+    link: EXTERNAL_LINKS.projects.nomadAI,
     metrics: '20% higher conversion',
     image: '/projects/nomadai_thumb_1773821912714.png',
   },
@@ -19,7 +20,7 @@ const projects = [
     title: 'Netflix Smart Cleanup',
     description: 'A retention tool for streaming services that helps users curate their "Continue Watching" list using AI.',
     tags: ['Python', 'Tuned Llama-3', 'React'],
-    link: 'https://netflix-cleanup.example.com',
+    link: EXTERNAL_LINKS.projects.netflixCleanup,
     metrics: '+15% Month-1 Retention',
     image: '/projects/netflix_cleanup_thumb_1773821929708.png',
   },
@@ -27,7 +28,7 @@ const projects = [
     title: 'Seed to Plate',
     description: 'FoodTech supply chain optimization system using predictive AI for inventory management.',
     tags: ['PostgreSQL', 'Node.js', 'StatsModel'],
-    link: 'https://seed-to-plate.example.com',
+    link: EXTERNAL_LINKS.projects.seedToPlate,
     metrics: 'reduced waste by 40%',
     image: '/projects/seed_to_plate_thumb_1773822280707.png',
   },
@@ -35,12 +36,11 @@ const projects = [
     title: 'AI Wedding Orchestrator',
     description: 'A multi-agent system that plans complex Indian weddings, managing 100+ tasks effortlessly.',
     tags: ['LangChain', 'Next.js', 'Supabase'],
-    link: 'https://wedding-ai.example.com',
+    link: EXTERNAL_LINKS.projects.weddingOrchestrator,
     metrics: '100+ tasks managed',
     image: '/projects/wedding_orchestrator_thumb_1773822349661.png',
   },
 ]
-
 export const Projects = () => {
   const { openPanel } = useAI()
   
@@ -63,14 +63,22 @@ export const Projects = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {projects.map((project, index) => (
-          <motion.div
+          <motion.a
             key={project.title}
+            href={project.link || '#'}
+            target={project.link ? "_blank" : undefined}
+            rel={project.link ? "noopener noreferrer" : undefined}
+            onClick={(e) => {
+              if (!project.link) {
+                 e.preventDefault();
+                 alert('Coming Soon!');
+              }
+            }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            className="group relative flex flex-col h-full cursor-pointer"
-            onClick={() => window.open(project.link, '_blank')}
+            className={`group relative flex flex-col h-full ${project.link ? 'cursor-pointer' : 'cursor-not-allowed'}`}
           >
             {/* Card Content Container */}
             <div className="glass-card rounded-[2rem] overflow-hidden flex flex-col h-full border border-white/5 group-hover:border-white/20 transition-all duration-500 shadow-2xl">
@@ -95,9 +103,10 @@ export const Projects = () => {
                 </div>
                 
                 {/* Indicator Icon */}
-                <div className="absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                   <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                      <ArrowUpRight size={20} />
+                <div className="absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                   <div className="px-4 py-2 rounded-full bg-accent-orange text-black font-black text-[10px] uppercase tracking-widest shadow-2xl flex items-center gap-1.5">
+                      Live
+                      <ArrowUpRight size={14} />
                    </div>
                 </div>
               </div>
@@ -127,10 +136,16 @@ export const Projects = () => {
                 <div className="mt-auto flex flex-col gap-3">
                   {/* Primary CTA */}
                   <div 
-                    className="w-full py-4 rounded-xl bg-white text-black font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-accent-orange transition-all"
+                    className={`w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${project.link ? 'bg-white text-black hover:bg-accent-orange' : 'bg-white/5 text-white/40 cursor-not-allowed'}`}
                   >
-                    View Prototype
-                    <ExternalLink size={16} />
+                    {project.link ? (
+                      <>
+                        View Prototype
+                        <ExternalLink size={16} />
+                      </>
+                    ) : (
+                      'Coming Soon'
+                    )}
                   </div>
                   
                   {/* Secondary CTA */}
@@ -151,7 +166,7 @@ export const Projects = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
       </div>
     </section>

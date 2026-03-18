@@ -2,48 +2,65 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Briefcase, Calendar, CheckCircle2, TrendingUp, Users, Target } from 'lucide-react'
+import { Briefcase, Calendar, CheckCircle2, TrendingUp, Users, Target, Sparkles } from 'lucide-react'
 
 const experiences = [
   {
     role: 'Co-founder & Founding Product Manager',
     company: 'Wash On Wheels',
-    period: '2022 — Present',
-    description: 'Leading the 0-to-1 product build for a disruptive auto-care platform.',
+    period: '2023 — 2025',
+    description: 'Spearheaded the 0-to-1 product lifecycle for a disruptive doorstep auto-care platform.',
     impact: [
-      'Built and shipped the MVP from scratch in under 4 months.',
-      'Conducted 30+ deep user interviews to define core product features.',
-      'Achieved 40% reduction in operational costs through automated scheduling.',
-      'Owned product roadmap, stakeholder management, and go-to-market strategy.'
+      'Built 0→1 doorstep car wash product.',
+      'Conducted 30+ deep user interviews to define core features.',
+      'Achieved a 40% reduction in operational costs through automated scheduling.',
+      'Owned full product lifecycle, roadmap, and stakeholder management.'
     ],
     highlight: true,
+    aiBadge: false,
     color: 'accent-orange'
+  },
+  {
+    role: 'AI Product Intern',
+    company: 'Product School',
+    period: 'Jan 2026',
+    description: 'Specialized in applying artificial intelligence to enhance product workflows.',
+    impact: [
+      'Worked on AI-driven product workflows to streamline operations.',
+      'Applied generative AI in product use cases to improve user engagement.',
+      'Contributed to research and feature definition for next-gen tools.'
+    ],
+    highlight: false,
+    aiBadge: true,
+    color: 'accent-purple'
   },
   {
     role: 'Business Development Manager',
     company: 'SK Autoperformance',
-    period: '2021 — 2022',
+    period: '2021 — 2023',
     description: 'Spearheaded market expansion and revenue optimization strategies.',
     impact: [
-      'Executed data-driven market research to identify high-growth segments.',
-      'Restructured pricing strategy leading to 15% increase in gross margins.',
-      'Optimized sales funnel to drive customer acquisition growth.'
+      'Led comprehensive market research and developed dynamic pricing strategy.',
+      'Improved merchant onboarding and bolstered long-term retention.',
+      'Drove significant revenue growth through pipeline optimization.'
     ],
     highlight: false,
-    color: 'accent-purple'
+    aiBadge: false,
+    color: 'accent-blue'
   },
   {
     role: 'Product Manager Fellow',
     company: 'NextLeap',
-    period: '2021',
+    period: '2024',
     description: 'Intensive fellowship focused on solving real-world product problems.',
     impact: [
-      'Authored comprehensive PRDs and MVPs for consumer-tech products.',
-      'Mastered Agile collaboration, user research, and prioritization frameworks.',
-      'Defined and tracked north-star metrics and core KPIs for product success.'
+      'Built detailed PRDs and conceptualized MVPs for consumer-tech products.',
+      'Utilized RICE/ICE frameworks for rigorous feature prioritization.',
+      'Defined KPIs and north-star metrics to track holistic product success.'
     ],
     highlight: false,
-    color: 'accent-blue'
+    aiBadge: false,
+    color: 'green-400'
   }
 ]
 
@@ -95,15 +112,23 @@ export const Experience = () => {
                     className={`glass-card p-8 md:p-10 rounded-[2rem] border border-white/5 bg-[#0B0F19]/50 backdrop-blur-xl transition-all duration-300 ${exp.highlight ? 'border-accent-purple/30 shadow-[0_0_50px_rgba(139,92,246,0.1)]' : ''}`}
                   >
                     <div className="flex items-center justify-between mb-6">
-                      <div className="flex items-center gap-2 text-accent-purple font-black text-[10px] uppercase tracking-widest">
-                        <Calendar size={14} />
+                      <div className="flex items-center gap-2 text-white/50 font-black text-[10px] uppercase tracking-widest">
+                        <Calendar size={14} className={`text-${exp.color}`} />
                         {exp.period}
                       </div>
-                      {exp.highlight && (
-                        <span className="px-3 py-1 rounded-full bg-accent-purple/20 text-accent-purple text-[10px] font-black uppercase tracking-widest border border-accent-purple/30">
-                          Co-founder
-                        </span>
-                      )}
+                      <div className="flex gap-2">
+                        {exp.highlight && (
+                          <span className={`px-3 py-1 rounded-full bg-${exp.color}/20 text-${exp.color} text-[10px] font-black uppercase tracking-widest border border-${exp.color}/30 shadow-[0_0_15px_rgba(255,107,0,0.2)]`}>
+                            Co-founder
+                          </span>
+                        )}
+                        {exp.aiBadge && (
+                          <span className={`px-3 py-1 rounded-full bg-${exp.color}/20 text-${exp.color} text-[10px] font-black uppercase tracking-widest border border-${exp.color}/30 shadow-[0_0_15px_rgba(139,92,246,0.2)] flex items-center gap-1.5`}>
+                            <Sparkles size={10} />
+                            AI Focus
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <h3 className="text-3xl font-black text-white mb-2 leading-tight">
