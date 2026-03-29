@@ -33,6 +33,33 @@ const caseStudies = [
     metrics: ['+40% Ad-Recall', '+18% Revenue'],
     color: 'from-green-500/20 to-transparent',
   },
+  {
+    title: 'Village Image Collection Platform',
+    subtitle: 'AI Data Acquisition (Josh Talks)',
+    problem: 'Critical need for culturally rich, hyper-local Indian datasets from remote villages to improve AI understanding of Bharat.',
+    solution: 'Mobile-responsive web tool with geofencing, regional language support, and offline draft mode for low-connectivity areas.',
+    impact: 'Targeted 1,000 images per village with a submission time under 30 seconds for users with low digital literacy.',
+    metrics: ['1,000 images/village', '< 30s submission'],
+    color: 'from-blue-500/20 to-transparent',
+  },
+  {
+    title: 'Transcriber Quality Detection',
+    subtitle: 'Fraud Prevention & QC (Josh Talks)',
+    problem: 'Mass data pollution from bad actors using Whisper-copied text and gaming the system via physically impossible speeds.',
+    solution: 'Multi-layered QC system using real-time signals: time-to-length ratio, edit-distance, and pattern matching.',
+    impact: 'Targets < 2% word-level error rate and significantly reduces operational waste by preventing fraudulent payouts.',
+    metrics: ['< 2% Error Rate', 'Shadow Ban System'],
+    color: 'from-purple-500/20 to-transparent',
+  },
+  {
+    title: 'Voice AI Evaluation System',
+    subtitle: 'Standardized Framework (Josh Talks)',
+    problem: 'Scaling model improvement for multilingual voice agents without objective ways to judge conversation quality.',
+    solution: 'Standardized evaluation framework using 5 weighted rubrics and AI-assisted workflows for consistent feedback loops.',
+    impact: 'Achieves κ > 0.7 inter-rater agreement and reduces manual evaluation time to 2-4 minutes per conversation.',
+    metrics: ['κ > 0.7 Agreement', '2-4m Eval Time'],
+    color: 'from-yellow-500/20 to-transparent',
+  },
 ]
 
 export const CaseStudies = () => {

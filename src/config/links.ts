@@ -9,7 +9,12 @@ export const EXTERNAL_LINKS = {
     nomadAI: 'https://venerable-gelato-7c94a5.netlify.app/auth',
     netflixCleanup: 'https://smartcleanup2.lovable.app/',
     seedToPlate: 'https://lovable.dev/projects/4dc8b725-236b-4493-b59c-2a0644fd0c0d',
-    weddingOrchestrator: 'https://lovable.dev/projects/6ddb9bb2-5436-4dba-a8ea-5968206c974c',
+    weddingOrchestrator: 'https://timely-ai-wedding-planner-grgi.vercel.app/app',
+    lilaBlack: 'https://player-journey-visualization.vercel.app/?map=AmbroseValley&date=February_14&segment=human&hmode=kill&hshow=true&paths=false&markers=true&events=Kill%2CBotKill%2CKilled%2CBotKilled%2CLoot%2CKilledByStorm',
+    joshtalksVillagePRD: 'https://joshtalktask1prd.netlify.app/',
+    joshtalksVillageDesign: 'https://joshtalksaidesign.netlify.app/',
+    joshtalksTranscriberQuality: 'https://transcriberqualitydetectionsystem.netlify.app/',
+    joshtalksVoiceEvaluation: 'https://voiceaices.netlify.app/',
   },
   social: {
     linkedin: 'https://linkedin.com/in/kaustubhd0022',

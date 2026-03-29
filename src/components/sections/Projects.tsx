@@ -40,6 +40,14 @@ const projects = [
     metrics: '100+ tasks managed',
     image: '/projects/wedding_orchestrator_thumb_1773822349661.png',
   },
+  {
+    title: 'LILA BLACK',
+    description: "AI-enabled Player Journey Visualization Tool for level designers. Transforms telemetry into interactive spatial insights.",
+    tags: ['Next.js', 'Plotly', 'Python', 'Spatial AI'],
+    link: EXTERNAL_LINKS.projects.lilaBlack,
+    metrics: 'Live Player Analytics',
+    image: '/projects/lila_black_thumb.png',
+  },
 ]
 export const Projects = () => {
   const { openPanel } = useAI()
