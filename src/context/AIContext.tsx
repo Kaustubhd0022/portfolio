@@ -58,7 +58,13 @@ export const AIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 export const useAI = () => {
   const context = useContext(AIContext)
   if (context === undefined) {
-    throw new Error('useAI must be used within an AIProvider')
+    // Return a safe fallback during SSR/Build where the AIProvider might not be active
+    return { 
+      isOpen: false, 
+      content: null, 
+      openPanel: async () => {}, 
+      closePanel: () => {} 
+    }
   }
   return context
 }
