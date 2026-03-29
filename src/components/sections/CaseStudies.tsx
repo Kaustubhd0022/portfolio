@@ -1,9 +1,8 @@
-'use client'
-
 import React from 'react'
 import { motion } from 'framer-motion'
-import { TrendingUp, Target, Lightbulb, CheckCircle2, Sparkles } from 'lucide-react'
+import { TrendingUp, Target, Lightbulb, CheckCircle2, Sparkles, ExternalLink, Layout, FileText } from 'lucide-react'
 import { useAI } from '@/context/AIContext'
+import { EXTERNAL_LINKS } from '@/config/links'
 
 const caseStudies = [
   {
@@ -41,6 +40,10 @@ const caseStudies = [
     impact: 'Targeted 1,000 images per village with a submission time under 30 seconds for users with low digital literacy.',
     metrics: ['1,000 images/village', '< 30s submission'],
     color: 'from-blue-500/20 to-transparent',
+    links: {
+      prd: EXTERNAL_LINKS.projects.joshtalksVillagePRD,
+      design: EXTERNAL_LINKS.projects.joshtalksVillageDesign,
+    }
   },
   {
     title: 'Transcriber Quality Detection',
@@ -50,6 +53,9 @@ const caseStudies = [
     impact: 'Targets < 2% word-level error rate and significantly reduces operational waste by preventing fraudulent payouts.',
     metrics: ['< 2% Error Rate', 'Shadow Ban System'],
     color: 'from-purple-500/20 to-transparent',
+    links: {
+      live: EXTERNAL_LINKS.projects.joshtalksTranscriberQuality,
+    }
   },
   {
     title: 'Voice AI Evaluation System',
@@ -59,6 +65,9 @@ const caseStudies = [
     impact: 'Achieves κ > 0.7 inter-rater agreement and reduces manual evaluation time to 2-4 minutes per conversation.',
     metrics: ['κ > 0.7 Agreement', '2-4m Eval Time'],
     color: 'from-yellow-500/20 to-transparent',
+    links: {
+      live: EXTERNAL_LINKS.projects.joshtalksVoiceEvaluation,
+    }
   },
 ]
 
@@ -130,22 +139,58 @@ export const CaseStudies = () => {
                 ))}
               </div>
 
-              <button 
-                onClick={() => openPanel(
-                  `Strategic Analysis: ${study.title}`,
-                  `Explain this case study: "${study.title}". 
-                  Focus on:
-                  1. Problem: ${study.problem}
-                  2. Solution: ${study.solution}
-                  3. Impact: ${study.impact}
-                  4. Key Trade-offs: Provide 2-3 strategic trade-offs made during development.`,
-                  `Context: Detailed case study analysis for ${study.title}.`
+              <div className="flex flex-wrap gap-3 mt-8">
+                <button 
+                  onClick={() => openPanel(
+                    `Strategic Analysis: ${study.title}`,
+                    `Explain this case study: "${study.title}". 
+                    Focus on:
+                    1. Problem: ${study.problem}
+                    2. Solution: ${study.solution}
+                    3. Impact: ${study.impact}
+                    4. Key Trade-offs: Provide 2-3 strategic trade-offs made during development.`,
+                    `Context: Detailed case study analysis for ${study.title}.`
+                  )}
+                  className="flex items-center gap-3 px-6 py-3 rounded-xl bg-accent-purple/10 border border-accent-purple/20 text-accent-purple text-sm font-black uppercase tracking-widest hover:bg-accent-purple hover:text-white transition-all group"
+                >
+                  <Sparkles size={18} className="group-hover:animate-spin" />
+                  Get AI Insight
+                </button>
+
+                {(study as any).links?.live && (
+                  <a 
+                    href={(study as any).links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+                  >
+                    <ExternalLink size={18} />
+                    View Live
+                  </a>
                 )}
-                className="mt-8 flex items-center gap-3 px-6 py-3 rounded-xl bg-accent-purple/10 border border-accent-purple/20 text-accent-purple text-sm font-black uppercase tracking-widest hover:bg-accent-purple hover:text-white transition-all group"
-              >
-                <Sparkles size={18} className="group-hover:animate-spin" />
-                Get AI Insight
-              </button>
+                {(study as any).links?.prd && (
+                  <a 
+                    href={(study as any).links.prd}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+                  >
+                    <FileText size={18} />
+                    View PRD
+                  </a>
+                )}
+                {(study as any).links?.design && (
+                  <a 
+                    href={(study as any).links.design}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+                  >
+                    <Layout size={18} />
+                    View Design
+                  </a>
+                )}
+              </div>
             </div>
 
             <div className="lg:w-1/3 flex flex-col justify-center">
