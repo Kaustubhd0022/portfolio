@@ -35,14 +35,15 @@ const experiences = [
     color: 'accent-purple'
   },
   {
-    role: 'Business Development Manager',
+    role: 'Founder',
     company: 'SK Autoperformance',
     period: '2021 — 2023',
-    description: 'Spearheaded market expansion and revenue optimization strategies.',
+    description: 'Founded and scaled an auto-performance venture from zero — owning the full product, pricing, and customer experience lifecycle.',
     impact: [
-      'Led comprehensive market research and developed dynamic pricing strategy.',
-      'Improved merchant onboarding and bolstered long-term retention.',
-      'Drove significant revenue growth through pipeline optimization.'
+      'Defined the service offering and go-to-market strategy through direct customer discovery and competitive analysis.',
+      'Designed the end-to-end customer journey, reducing friction in onboarding and improving repeat purchase rate.',
+      'Built dynamic pricing models based on demand signals, driving measurable revenue growth.',
+      'Iterated on the core service based on customer feedback loops, improving satisfaction and long-term retention.'
     ],
     highlight: false,
     aiBadge: false,
