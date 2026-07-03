@@ -13,7 +13,7 @@ const metrics = [
   },
   {
     label: 'Years 0-to-1 Exp',
-    value: '2+',
+    value: '4+',
     icon: <Zap className="text-accent-purple" size={24} />,
     description: 'Founding PM experience scaling startups from zero.',
   },
