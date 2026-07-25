@@ -41,6 +41,7 @@ export const AetherBackground = () => {
             }
 
             update() {
+                if (!canvas) return;
                 if (this.x > canvas.width || this.x < 0) {
                     this.directionX = -this.directionX;
                 }
@@ -68,6 +69,7 @@ export const AetherBackground = () => {
         }
 
         function init() {
+            if (!canvas) return;
             particles = [];
             let numberOfParticles = (canvas.width * canvas.height) / 9000;
             for (let i = 0; i < numberOfParticles; i++) {
@@ -90,7 +92,7 @@ export const AetherBackground = () => {
         resizeCanvas();
 
         const connect = () => {
-            if (!ctx) return;
+            if (!ctx || !canvas) return;
             let opacityValue = 1;
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a; b < particles.length; b++) {
