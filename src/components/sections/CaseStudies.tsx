@@ -81,7 +81,7 @@ export const CaseStudies = () => {
           <Target size={12} />
           Deep Dives
         </div>
-        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
+        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">
           Product <span className="text-accent-orange">Thinking</span>
         </h2>
         <p className="text-secondary text-lg max-w-2xl">
@@ -105,7 +105,7 @@ export const CaseStudies = () => {
               <span className="text-accent-orange font-bold text-sm uppercase tracking-widest mb-2 block">
                 {study.subtitle}
               </span>
-              <h3 className="text-3xl md:text-5xl font-black mb-8 text-white">
+              <h3 className="text-3xl md:text-5xl font-black mb-8 bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">
                 {study.title}
               </h3>
               

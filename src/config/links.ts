@@ -15,6 +15,7 @@ export const EXTERNAL_LINKS = {
     joshtalksVillageDesign: 'https://joshtalksaidesign.netlify.app/',
     joshtalksTranscriberQuality: 'https://transcriberqualitydetectionsystem.netlify.app/',
     joshtalksVoiceEvaluation: 'https://voiceaices.netlify.app/',
+    washOnWheels: 'https://washwise-ai-drive.lovable.app/',
   },
   social: {
     linkedin: 'https://linkedin.com/in/kaustubhd0022',

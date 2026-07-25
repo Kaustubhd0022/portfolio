@@ -33,7 +33,7 @@ const metrics = [
 
 export const Metrics = () => {
   return (
-    <section className="py-24 max-w-7xl mx-auto px-6">
+    <section id="metrics" className="py-24 max-w-7xl mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {metrics.map((metric, index) => (
           <motion.div
@@ -51,7 +51,7 @@ export const Metrics = () => {
             </div>
             
             <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-4xl font-black text-white">{metric.value}</span>
+              <span className="text-4xl font-black bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">{metric.value}</span>
               <span className="text-sm font-bold text-accent-orange uppercase tracking-widest">{metric.label}</span>
             </div>
             

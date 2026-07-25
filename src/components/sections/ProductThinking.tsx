@@ -65,7 +65,7 @@ export const ProductThinking = () => {
           <Brain size={12} />
           Artifacts & Frameworks
         </div>
-        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
+        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">
           Product <span className="text-accent-purple">Thinking</span>
         </h2>
         <p className="text-secondary text-lg max-w-2xl">

@@ -9,6 +9,14 @@ import { EXTERNAL_LINKS } from '@/config/links'
 
 const projects = [
   {
+    title: 'Wash On Wheels (WashWise AI)',
+    description: 'A doorstep car-wash booking flow and real-time ops dashboard prototype built with AI.',
+    tags: ['React', 'Supabase', 'AI Ops'],
+    link: EXTERNAL_LINKS.projects.washOnWheels,
+    metrics: 'Operations Prototype',
+    image: '/projects/seed_to_plate_thumb_1773822280707.png', // Placeholder
+  },
+  {
     title: 'NomadAI',
     description: 'AI travel companion that generates personalized itineraries based on user vibes and budget.',
     tags: ['Next.js', 'OpenAI', 'Google Maps API'],
@@ -60,7 +68,7 @@ export const Projects = () => {
             <Briefcase size={12} />
             Live Prototypes
           </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">
             Featured <span className="text-accent-orange">Experiments</span>
           </h2>
           <p className="text-secondary text-lg">

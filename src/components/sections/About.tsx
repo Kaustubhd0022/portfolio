@@ -31,7 +31,7 @@ export const About = () => {
             Pune, India · Available for 0-1 projects
           </div>
           
-          <h2 className="text-5xl md:text-6xl font-black mb-4 tracking-tight text-white leading-tight">
+          <h2 className="text-5xl md:text-6xl font-black mb-4 tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm leading-tight">
             Kaustubh <span className="text-accent-orange block mt-2">Deshmukh.</span>
           </h2>
           

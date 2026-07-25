@@ -29,7 +29,7 @@ export const Contact = () => {
             <Mail size={40} />
           </div>
           
-          <h2 className="text-4xl md:text-7xl font-black mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-7xl font-black mb-6 tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">
             Ready to <span className="text-accent-orange">build</span> something?
           </h2>
           <p className="text-xl text-secondary mb-12 max-w-2xl">

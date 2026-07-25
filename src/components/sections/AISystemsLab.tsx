@@ -544,7 +544,7 @@ export const AISystemsLab = () => {
           <Cpu size={12} />
           AI Innovation Hub
         </div>
-        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight text-white">
+        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">
           AI Systems <span className="text-accent-purple">Lab</span>
         </h2>
         <p className="text-secondary text-lg max-w-2xl">

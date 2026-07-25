@@ -8,11 +8,12 @@ import { cn } from '../../lib/utils'
 
 const navLinks = [
   { name: 'Experience', href: '#experience' },
-  { name: 'Case Studies', href: '#case-studies' },
-  { name: 'Thinking', href: '#thinking' },
-  { name: 'PRDs', href: '#prds' },
-  { name: 'AI Labs', href: '#ai-lab' },
   { name: 'Projects', href: '#projects' },
+  { name: 'AI Labs', href: '#ai-lab' },
+  { name: 'PRDs', href: '#prds' },
+  { name: 'Prototype', href: '#metrics' },
+  { name: 'Thinking', href: '#thinking' },
+  { name: 'Case Studies', href: '#case-studies' },
   { name: 'Education', href: '#education' },
   { name: 'About', href: '#about' },
 ]

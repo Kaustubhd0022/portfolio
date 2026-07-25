@@ -15,13 +15,13 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Metrics />
       <Experience />
-      <CaseStudies />
-      <ProductThinking />
-      <PRDs />
-      <AISystemsLab />
       <Projects />
+      <AISystemsLab />
+      <PRDs />
+      <Metrics />
+      <ProductThinking />
+      <CaseStudies />
       <Education />
       <About />
       <Contact />

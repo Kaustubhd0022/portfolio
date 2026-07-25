@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { AetherBackground } from './aether-background'
 
 export const ParallaxBackground = ({ children }: { children: React.ReactNode }) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -18,6 +19,7 @@ export const ParallaxBackground = ({ children }: { children: React.ReactNode }) 
 
   return (
     <div ref={containerRef} className="relative min-h-screen overflow-hidden bg-[#0B0F19]">
+      <AetherBackground />
       {/* Background Layer (Layer 1) - Subtle Gradients */}
       <motion.div 
         style={{ y: bgY }}

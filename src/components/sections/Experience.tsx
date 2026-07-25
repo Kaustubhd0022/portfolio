@@ -2,19 +2,21 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Briefcase, Calendar, CheckCircle2, TrendingUp, Users, Target, Sparkles } from 'lucide-react'
+import { Briefcase, Calendar, CheckCircle2, TrendingUp, Users, Target, Sparkles, ArrowRight } from 'lucide-react'
 
 const experiences = [
   {
-    role: 'Co-founder & Founding Product Manager',
+    role: 'Co-founder',
     company: 'Wash On Wheels',
-    period: '2023 — 2025',
-    description: 'Spearheaded the 0-to-1 product lifecycle for a disruptive doorstep auto-care platform.',
+    subRole: 'Founding Product Manager',
+    period: 'Oct 2023 – Sep 2025',
+    location: 'Sangli, MH',
+    description: 'Built the internal tech backbone for a doorstep car-wash operation: a customer-facing booking flow (app + WhatsApp) paired with an ops dashboard (Supabase/Firebase) for real-time scheduling and dispatch across a mobile fleet — replacing manual call/spreadsheet coordination as order volume scaled.',
     impact: [
-      'Built 0→1 doorstep car wash product.',
-      'Conducted 30+ deep user interviews to define core features.',
-      'Achieved a 40% reduction in operational costs through automated scheduling.',
-      'Owned full product lifecycle, roadmap, and stakeholder management.'
+      'Scaled demand 4–5x in under 4 months (2 → 8–10 orders/day/vehicle): validated PMF through 30+ customer discovery interviews, launched MVP in 3 months, and grew a 4–5 vehicle fleet to ₹2L+/month GMV.',
+      'Used Firebase/Supabase analytics to track booking conversion, driver utilization, and repeat-order rate — prioritizing dispatch dashboard improvements that reduced manual reassignment time.',
+      'Drove 65%+ repeat customer rate (vs. 40–50% industry average): ran A/B-tested WhatsApp/app reminder cadences and loyalty tiers, cutting churn 30% over 6 months.',
+      'Cut per-zone launch cost by ~85% (₹1.5–6L → under ₹90K): designed an asset-light, mobile-first service model after competitive analysis of 5+ local operators, enabling 3x faster expansion.'
     ],
     highlight: true,
     aiBadge: false,
@@ -73,7 +75,7 @@ export const Experience = () => {
           <Briefcase size={12} />
           Career Journey
         </div>
-        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight text-white">
+        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text drop-shadow-sm">
           Impact & <span className="text-accent-purple">Ownership</span>
         </h2>
         <p className="text-secondary text-lg max-w-2xl">
@@ -113,9 +115,17 @@ export const Experience = () => {
                     className={`glass-card p-8 md:p-10 rounded-[2rem] border border-white/5 bg-[#0B0F19]/50 backdrop-blur-xl transition-all duration-300 ${exp.highlight ? 'border-accent-purple/30 shadow-[0_0_50px_rgba(139,92,246,0.1)]' : ''}`}
                   >
                     <div className="flex items-center justify-between mb-6">
-                      <div className="flex items-center gap-2 text-white/50 font-black text-[10px] uppercase tracking-widest">
+                      <div className="flex flex-wrap items-center gap-2 text-white/50 font-black text-[10px] uppercase tracking-widest">
                         <Calendar size={14} className={`text-${exp.color}`} />
                         {exp.period}
+                        {/* @ts-ignore */}
+                        {exp.location && (
+                          <>
+                            <span className="opacity-50">•</span>
+                            {/* @ts-ignore */}
+                            <span>{exp.location}</span>
+                          </>
+                        )}
                       </div>
                       <div className="flex gap-2">
                         {exp.highlight && (
@@ -135,13 +145,27 @@ export const Experience = () => {
                     <h3 className="text-3xl font-black text-white mb-2 leading-tight">
                       {exp.role}
                     </h3>
-                    <p className="text-accent-purple text-lg font-bold mb-4">
-                      {exp.company}
-                    </p>
+                    <div className="mb-4">
+                      <p className="text-accent-purple text-lg font-bold">
+                        {exp.company}
+                      </p>
+                      {/* @ts-ignore */}
+                      {exp.subRole && (
+                        <p className="text-white/70 font-medium text-base mt-1">
+                          {/* @ts-ignore */}
+                          {exp.subRole}
+                        </p>
+                      )}
+                    </div>
                     
-                    <p className="text-secondary text-base mb-8 font-medium">
-                      {exp.description}
-                    </p>
+                    <div className="flex items-start gap-3 mb-8">
+                      <div className={`mt-1 flex items-center justify-center text-${exp.color} shrink-0`}>
+                        <ArrowRight size={18} />
+                      </div>
+                      <p className="text-secondary text-base font-medium">
+                        {exp.description}
+                      </p>
+                    </div>
 
                     <div className="space-y-4">
                       {exp.impact.map((point) => (
