@@ -2,10 +2,12 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 
-type AIContent = {
+export type AIContent = {
   title: string
   body: string
   isLoading: boolean
+  isError?: boolean
+  retry?: () => void
 }
 
 interface AIContextType {
@@ -23,7 +25,13 @@ export const AIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const openPanel = async (title: string, prompt: string, context?: string) => {
     setIsOpen(true)
-    setContent({ title, body: '', isLoading: true })
+    setContent({
+      title,
+      body: '',
+      isLoading: true,
+      isError: false,
+      retry: () => openPanel(title, prompt, context)
+    })
     
     try {
       const res = await fetch('/api/ai', {
@@ -34,12 +42,30 @@ export const AIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       const data = await res.json()
       
       if (data.error) {
-        setContent({ title, body: `Backend Error: ${data.error}`, isLoading: false })
+        setContent({
+          title,
+          body: data.error || 'Something went wrong connecting to Groq AI.',
+          isLoading: false,
+          isError: true,
+          retry: () => openPanel(title, prompt, context)
+        })
       } else {
-        setContent({ title, body: data.insight || 'No insight generated.', isLoading: false })
+        setContent({
+          title,
+          body: data.insight || 'No insight generated.',
+          isLoading: false,
+          isError: false,
+          retry: () => openPanel(title, prompt, context)
+        })
       }
     } catch (err: any) {
-      setContent({ title, body: `Network Error: Could not reach the AI strategist. ${err?.message || ''}`, isLoading: false })
+      setContent({
+        title,
+        body: `Network connection error: ${err?.message || 'Could not connect to AI backend'}. Please verify your connection or try again.`,
+        isLoading: false,
+        isError: true,
+        retry: () => openPanel(title, prompt, context)
+      })
     }
   }
 
@@ -58,7 +84,6 @@ export const AIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 export const useAI = () => {
   const context = useContext(AIContext)
   if (context === undefined) {
-    // Return a safe fallback during SSR/Build where the AIProvider might not be active
     return { 
       isOpen: false, 
       content: null, 

@@ -11,7 +11,7 @@ const navLinks = [
   { name: 'Projects', href: '#projects' },
   { name: 'AI Labs', href: '#ai-lab' },
   { name: 'PRDs', href: '#prds' },
-  { name: 'Prototype', href: '#metrics' },
+  { name: 'Impact', href: '#metrics' },
   { name: 'Thinking', href: '#thinking' },
   { name: 'Case Studies', href: '#case-studies' },
   { name: 'Education', href: '#education' },
@@ -27,8 +27,17 @@ export const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false)
+      }
+    }
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('keydown', handleKeyDown)
+    }
   }, [])
 
   useEffect(() => {
@@ -58,6 +67,7 @@ export const Navbar = () => {
 
   return (
     <nav
+      aria-label="Primary navigation"
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b',
         isScrolled 
@@ -66,7 +76,7 @@ export const Navbar = () => {
       )}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2">
+        <Link href="/" className="group flex items-center gap-2" aria-label="Kaustubh Deshmukh Home">
           <div className="w-8 h-8 rounded-lg bg-accent-orange flex items-center justify-center font-bold text-black text-lg transition-transform group-hover:rotate-12">
             K
           </div>
@@ -110,8 +120,10 @@ export const Navbar = () => {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white p-2 rounded-lg hover:bg-white/5 transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMobileMenuOpen}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

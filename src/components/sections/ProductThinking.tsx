@@ -27,7 +27,7 @@ const thinkingCards = [
     icon: <Brain size={24} className="text-accent-purple" />,
     color: 'accent-purple',
     logo: '/logos/flipkart.png',
-    previewUrl: '/flipkart.pdf',
+    previewUrl: '/Flipkart.pdf',
     details: 'Redesigning the refund architecture by asking: "Why do we wait for physical verification?" and building a trust-score based instant refund engine.'
   },
   {
@@ -58,6 +58,18 @@ export const ProductThinking = () => {
   const { openPanel } = useAI()
   const [activePreview, setActivePreview] = useState<string | null>(null)
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActivePreview(null)
+      }
+    }
+    if (activePreview) {
+      window.addEventListener('keydown', handleKeyDown)
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [activePreview])
+
   return (
     <section id="thinking" className="py-24 max-w-7xl mx-auto px-6 relative">
       <div className="mb-16">
@@ -81,8 +93,8 @@ export const ProductThinking = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            whileHover={{ y: -10 }}
-            className={`group relative ${card.previewUrl ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            whileHover={{ y: -6 }}
+            className={`group relative ${card.previewUrl ? 'cursor-pointer' : 'cursor-default'}`}
             onClick={() => {
               if (card.previewUrl) {
                 setActivePreview(card.previewUrl)
@@ -90,7 +102,7 @@ export const ProductThinking = () => {
             }}
           >
             {/* Glow Effect on Hover */}
-            <div className={`absolute -inset-0.5 bg-gradient-to-r from-${card.color} to-transparent rounded-[2.5rem] blur opacity-0 group-hover:opacity-20 transition duration-500`} />
+            <div className={`absolute -inset-0.5 bg-gradient-to-r from-accent-purple/20 to-transparent rounded-[2.5rem] blur opacity-0 group-hover:opacity-40 transition duration-500`} />
             
             <div className="glass-card relative p-10 h-full flex flex-col rounded-[2.5rem] border border-white/5 overflow-hidden">
               {card.logo && (
@@ -100,7 +112,7 @@ export const ProductThinking = () => {
                     alt={`${card.project} logo`} 
                     width={24} 
                     height={24} 
-                    className="grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.2)] object-contain" 
+                    className="grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.2)] object-contain" 
                   />
                 </div>
               )}
@@ -126,21 +138,22 @@ export const ProductThinking = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button 
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation()
                       if (card.previewUrl) {
                         setActivePreview(card.previewUrl)
-                      } else {
-                        alert('Deck Coming Soon!')
                       }
                     }}
-                    className={`flex-grow py-4 px-6 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl ${card.previewUrl ? 'bg-white text-black hover:bg-accent-purple hover:text-white' : 'bg-white/5 text-white/40 cursor-not-allowed'}`}
+                    disabled={!card.previewUrl}
+                    className={`flex-grow py-4 px-6 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl cursor-pointer ${card.previewUrl ? 'bg-white text-black hover:bg-accent-purple hover:text-white' : 'bg-white/5 text-white/40 cursor-not-allowed'}`}
                   >
-                    {card.previewUrl ? 'View Breakdown' : 'Coming Soon'}
+                    {card.previewUrl ? 'View Breakdown' : 'Deck in Progress'}
                     {card.previewUrl && <ArrowRight size={14} />}
                   </button>
                   
                   <button 
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation()
                       openPanel(
@@ -149,7 +162,7 @@ export const ProductThinking = () => {
                         `Context: General PM education on ${card.type}.`
                       )
                     }}
-                    className="py-4 px-6 rounded-2xl bg-white/5 border border-white/10 text-white font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-white/10 transition-all"
+                    className="py-4 px-6 rounded-2xl bg-white/5 border border-white/10 text-white font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-white/10 transition-all cursor-pointer"
                   >
                     <Sparkles size={14} className="text-accent-purple" />
                     Explain concept
@@ -168,6 +181,9 @@ export const ProductThinking = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Document Preview Dialog"
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-12 bg-black/80 backdrop-blur-sm"
             onClick={() => setActivePreview(null)}
           >
@@ -187,7 +203,7 @@ export const ProductThinking = () => {
                   </div>
                   <div>
                     <h3 className="text-sm font-black text-white leading-none mb-1">Interactive Deck Preview</h3>
-                    <p className="text-[10px] text-secondary uppercase tracking-widest">Product Thinking Artifact</p>
+                    <p className="text-[10px] text-secondary uppercase tracking-widest">Press Escape to Close</p>
                   </div>
                 </div>
                 
@@ -202,7 +218,8 @@ export const ProductThinking = () => {
                   </a>
                   <button 
                     onClick={() => setActivePreview(null)}
-                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-secondary hover:text-white transition-all"
+                    aria-label="Close document preview"
+                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-secondary hover:text-white transition-all cursor-pointer"
                   >
                     <X size={18} />
                   </button>

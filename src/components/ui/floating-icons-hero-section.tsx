@@ -148,6 +148,10 @@ const FloatingIconsHero = React.forwardRef<
 
       {/* Container for the foreground content */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center pointer-events-auto">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-white/10 text-[11px] font-bold tracking-widest uppercase mb-6 text-white/80">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>Available for 0-to-1 Product Roles & AI Systems</span>
+        </div>
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text">
           {title}
         </h1>
@@ -165,10 +169,10 @@ const FloatingIconsHero = React.forwardRef<
             {ctaText}
           </Link>
           <Link 
-            href="#ai-systems" 
-            className="inline-flex h-12 md:h-14 rounded-xl px-8 md:px-10 text-base md:text-lg glass border-white/10 text-white hover:bg-white/5 items-center justify-center font-bold transition-all"
+            href="#ai-lab" 
+            className="inline-flex h-12 md:h-14 rounded-xl px-8 md:px-10 text-base md:text-lg glass border-white/10 text-white hover:bg-white/5 items-center justify-center font-bold transition-all hover:border-accent-purple/40"
           >
-            Watch AI Agent Demo
+            Explore AI Systems Lab
           </Link>
         </div>
       </div>

@@ -170,6 +170,59 @@ const generateWAOutput = () => {
 Status: Awaiting user payment.`
 };
 
+const generateVoiceOutput = () => {
+  return `🎙️ User Audio Interview Transcript Analysis:
+- User Segment: Tier-2 E-commerce Consumer (Hindi + English colloquial)
+- Primary Audio Snippet: "Refund status dekhne ke liye bar bar call karna padta hai, koi clear timeline nahi milta."
+
+🧠 NLP Sentiment & Frustration Scoring:
+- Customer Effort Score: 8.6/10 (High Anxiety around delivery verification)
+- Extracted Entities: [Refund Status, Delivery Agent Pickup, SMS Timeline]
+
+💡 Actionable PM Recommendation & Feature Spec:
+1. Push real-time WhatsApp & In-App trigger the instant return courier scans package.
+2. Display instant wallet credit preview before bank reversal completes.
+- Projected Impact: 35% reduction in customer support WISMO tickets, +18% 30-day repeat purchase rate.`
+};
+
+export const colorThemeMap: Record<string, {
+  glow: string
+  badge: string
+  text: string
+  border: string
+  cardBg: string
+  hoverBg: string
+  loaderColor: string
+}> = {
+  'accent-purple': {
+    glow: 'bg-purple-600/15',
+    badge: 'bg-purple-500/10 text-purple-400',
+    text: 'text-purple-400',
+    border: 'border-purple-500/30',
+    cardBg: 'bg-purple-950/20',
+    hoverBg: 'hover:bg-purple-600',
+    loaderColor: 'text-purple-400',
+  },
+  'accent-orange': {
+    glow: 'bg-orange-600/15',
+    badge: 'bg-orange-500/10 text-orange-400',
+    text: 'text-orange-400',
+    border: 'border-orange-500/30',
+    cardBg: 'bg-orange-950/20',
+    hoverBg: 'hover:bg-orange-500',
+    loaderColor: 'text-orange-400',
+  },
+  'accent-blue': {
+    glow: 'bg-sky-600/15',
+    badge: 'bg-sky-500/10 text-sky-400',
+    text: 'text-sky-400',
+    border: 'border-sky-500/30',
+    cardBg: 'bg-sky-950/20',
+    hoverBg: 'hover:bg-sky-500',
+    loaderColor: 'text-sky-400',
+  },
+};
+
 // --- CORE HOOK ---
 const useSimulation = (loadingMessages: string[], generator: (input?: string) => any) => {
   const [isSimulating, setIsSimulating] = useState(false)
@@ -381,14 +434,23 @@ const GenericAgentCard = ({ system }: { system: any }) => {
   } else if (system.id === 'wa-commerce') {
     generator = generateWAOutput;
     messages = [
-      "Understanding user intent...",
-      "Querying product catalog...",
-      "Matching availability and pricing...",
-      "Generating secure checkout link..."
+      "Understanding customer intent...",
+      "Querying catalog & inventory graph...",
+      "Matching sizes, stock & delivery SLA...",
+      "Generating secure checkout link via payment gateway..."
+    ];
+  } else if (system.id === 'voice-research') {
+    generator = generateVoiceOutput;
+    messages = [
+      "Transcribing raw customer audio...",
+      "Extracting emotional polarity & stress signals...",
+      "Isolating product friction points & unmet needs...",
+      "Generating prioritized PM recommendations..."
     ];
   }
 
   const { isSimulating, loadingStep, result, setResult, runSimulation } = useSimulation(messages, generator)
+  const theme = colorThemeMap[system.color] || colorThemeMap['accent-purple']
 
   return (
     <>
@@ -397,15 +459,15 @@ const GenericAgentCard = ({ system }: { system: any }) => {
           <button
             onClick={() => runSimulation()}
             disabled={isSimulating}
-            className={`flex-1 md:flex-none flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
+            className={`flex-1 md:flex-none flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer ${
               isSimulating 
-              ? `bg-${system.color}/20 text-white/50 cursor-not-allowed` 
-              : `bg-white text-black hover:bg-${system.color} hover:text-white shadow-[0_0_20px_rgba(255,255,255,0.1)] group`
+              ? `${theme.badge} opacity-60 cursor-not-allowed` 
+              : `bg-white text-black ${theme.hoverBg} hover:text-white shadow-[0_0_20px_rgba(255,255,255,0.1)] group`
             }`}
           >
             {isSimulating ? (
               <>
-                <Loader2 size={16} className={`animate-spin text-${system.color}`} />
+                <Loader2 size={16} className={`animate-spin ${theme.loaderColor}`} />
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={loadingStep}
@@ -413,7 +475,7 @@ const GenericAgentCard = ({ system }: { system: any }) => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.2 }}
-                    className={`text-${system.color}`}
+                    className={theme.text}
                   >
                     {messages[loadingStep]}
                   </motion.span>
@@ -437,7 +499,7 @@ const GenericAgentCard = ({ system }: { system: any }) => {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className={`flex items-center gap-2 text-accent-orange font-bold text-xs shrink-0`}
+              className="flex items-center gap-2 text-accent-orange font-bold text-xs shrink-0"
             >
               <CheckCircle2 size={16} />
               Simulation Complete
@@ -452,15 +514,16 @@ const GenericAgentCard = ({ system }: { system: any }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className={`mt-6 p-6 rounded-2xl bg-${system.color}/5 border border-${system.color}/20 relative shadow-[0_0_30px_rgba(255,255,255,0.02)] backdrop-blur-xl`}
+            className={`mt-6 p-6 rounded-2xl ${theme.cardBg} border ${theme.border} relative shadow-[0_0_30px_rgba(0,0,0,0.5)] backdrop-blur-xl`}
           >
             <button 
               onClick={() => setResult(null)}
-              className="absolute top-4 right-4 text-secondary hover:text-white transition-colors"
+              aria-label="Close agent output"
+              className="absolute top-4 right-4 text-secondary hover:text-white transition-colors p-1"
             >
               <X size={16} />
             </button>
-            <p className={`text-${system.color} font-black text-[10px] uppercase tracking-widest mb-4 flex items-center gap-2`}>
+            <p className={`${theme.text} font-black text-[10px] uppercase tracking-widest mb-4 flex items-center gap-2`}>
               <Brain size={14} /> Agent Output
             </p>
             
@@ -522,7 +585,7 @@ const systems = [
     description: 'End-to-end sales automation from chat intent to final payment link generation.',
     steps: ['Intent Match', 'Catalog Search', 'Payment Link'],
     tags: ['Sales', 'WhatsApp', 'Commerce'],
-    simulated: false,
+    simulated: true,
     color: 'accent-orange'
   },
   {
@@ -531,7 +594,7 @@ const systems = [
     description: 'Analyzing user audio interviews to extract actionable product insights and feature requests.',
     steps: ['Audio NLP', 'Insight Extraction', 'Feature Recs'],
     tags: ['Voice AI', 'NLP', 'Flipkart'],
-    simulated: false,
+    simulated: true,
     color: 'accent-blue'
   }
 ]
@@ -553,33 +616,35 @@ export const AISystemsLab = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {systems.map((system, index) => (
-          <motion.div
-            key={system.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="glass-card p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden flex flex-col group hover:border-white/20 transition-all duration-500"
-          >
-            {/* Background Glow */}
-            <div className={`absolute -right-20 -top-20 w-64 h-64 bg-${system.color}/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
+        {systems.map((system, index) => {
+          const theme = colorThemeMap[system.color] || colorThemeMap['accent-purple']
+          return (
+            <motion.div
+              key={system.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="glass-card p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden flex flex-col group hover:border-white/20 transition-all duration-500"
+            >
+              {/* Background Glow */}
+              <div className={`absolute -right-20 -top-20 w-64 h-64 ${theme.glow} blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
 
-            <div className="flex items-start justify-between mb-8">
-              <div className={`w-14 h-14 rounded-2xl bg-${system.color}/10 flex items-center justify-center text-${system.color}`}>
-                {system.id === 'prd-gen' && <Sparkles size={28} />}
-                {system.id === 'stock-analyzer' && <TrendingUp size={28} />}
-                {system.id === 'voice-research' && <Mic size={28} />}
-                {system.id === 'wa-commerce' && <MessageSquare size={28} />}
+              <div className="flex items-start justify-between mb-8">
+                <div className={`w-14 h-14 rounded-2xl ${theme.badge} flex items-center justify-center`}>
+                  {system.id === 'prd-gen' && <Sparkles size={28} />}
+                  {system.id === 'stock-analyzer' && <TrendingUp size={28} />}
+                  {system.id === 'voice-research' && <Mic size={28} />}
+                  {system.id === 'wa-commerce' && <MessageSquare size={28} />}
+                </div>
+                <div className="flex flex-wrap gap-2 justify-end">
+                  {system.tags.map(tag => (
+                    <span key={tag} className="px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest bg-white/5 text-secondary border border-white/10">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2 justify-end">
-                {system.tags.map(tag => (
-                  <span key={tag} className="px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest bg-white/5 text-secondary border border-white/10">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
 
             <h3 className="text-3xl font-black text-white mb-4">{system.title}</h3>
             <p className="text-secondary text-base mb-8 leading-relaxed">
@@ -608,7 +673,7 @@ export const AISystemsLab = () => {
             )}
             
           </motion.div>
-        ))}
+        )})}
 
         {/* Coming Soon Card */}
         <motion.div

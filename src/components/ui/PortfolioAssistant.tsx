@@ -22,6 +22,18 @@ export const PortfolioAssistant = () => {
     scrollToBottom()
   }, [messages, isLoading])
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown)
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
+
   const suggestedQueries = [
     "Tell me about your journey",
     "Which project had most impact?",
@@ -48,11 +60,11 @@ export const PortfolioAssistant = () => {
       if (data.answer) {
         setMessages(prev => [...prev, { role: 'ai', content: data.answer }])
       } else {
-        setMessages(prev => [...prev, { role: 'ai', content: "Sorry, I couldn't process that right now." }])
+        setMessages(prev => [...prev, { role: 'ai', content: data.error || "Sorry, I couldn't process that right now. Please try again." }])
       }
     } catch (error) {
       console.error(error)
-      setMessages(prev => [...prev, { role: 'ai', content: "An error occurred fetching the response." }])
+      setMessages(prev => [...prev, { role: 'ai', content: "An error occurred fetching the response. Please check your connection." }])
     } finally {
       setIsLoading(false)
     }
@@ -68,7 +80,8 @@ export const PortfolioAssistant = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-accent-purple text-black flex items-center justify-center shadow-[0_0_30px_rgba(139,92,246,0.6)] hover:scale-110 transition-transform"
+            aria-label="Open Kaustubh's AI Assistant"
+            className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-accent-purple text-black flex items-center justify-center shadow-[0_0_30px_rgba(139,92,246,0.6)] hover:scale-110 transition-transform cursor-pointer"
           >
             <Sparkles size={28} />
           </motion.button>
@@ -82,6 +95,9 @@ export const PortfolioAssistant = () => {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Portfolio AI Assistant"
             className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] h-[600px] max-h-[calc(100vh-48px)] glass-card rounded-[2rem] border border-white/10 flex flex-col overflow-hidden shadow-2xl"
           >
             {/* Header */}
@@ -93,13 +109,14 @@ export const PortfolioAssistant = () => {
                   <div>
                     <h3 className="text-white font-bold text-sm">Portfolio Assistant</h3>
                     <p className="text-accent-purple text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-purple animate-pulse" /> Online
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent-purple animate-pulse" /> Online · Esc to close
                     </p>
                   </div>
                </div>
                <button 
                   onClick={() => setIsOpen(false)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 transition-colors"
+                  aria-label="Close assistant"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                 >
                   <ChevronDown size={20} />
                </button>

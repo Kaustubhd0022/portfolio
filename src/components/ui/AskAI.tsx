@@ -26,8 +26,8 @@ export const AskAI = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!query.trim()) return
-    openPanel('AI Personal Assistant', query, 'Context: User is asking about Kaustubh\'s portfolio from the Hero section.')
+    const activeQuery = query.trim() || suggestedPrompts[placeholderIndex]
+    openPanel('AI Personal Assistant', activeQuery, 'Context: User is asking about Kaustubh\'s portfolio from the Hero section.')
     setQuery('')
   }
 
@@ -44,7 +44,11 @@ export const AskAI = () => {
           <Search className="text-secondary group-focus-within:text-accent-purple transition-colors" size={20} />
           
           <div className="relative flex-grow h-12 flex items-center ml-4">
+            <label htmlFor="hero-ask-ai-input" className="sr-only">
+              Ask AI about Kaustubh
+            </label>
             <input
+              id="hero-ask-ai-input"
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}

@@ -58,13 +58,13 @@ export const About = () => {
           
           <div className="grid grid-cols-2 gap-4 mb-10">
             {[
-              { label: '0→1 Execution', color: 'accent-orange' },
-              { label: 'AI Product Strategy', color: 'accent-purple' },
-              { label: 'Growth & Analytics', color: 'accent-blue' },
-              { label: 'Cross-functional Leadership', color: 'green-400' }
+              { label: '0→1 Execution', dotClass: 'bg-accent-orange' },
+              { label: 'AI Product Strategy', dotClass: 'bg-accent-purple' },
+              { label: 'Growth & Analytics', dotClass: 'bg-accent-blue' },
+              { label: 'Cross-functional Leadership', dotClass: 'bg-emerald-400' }
             ].map(strength => (
               <div key={strength.label} className="glass border border-white/5 py-3 px-4 rounded-2xl flex items-center gap-3">
-                 <div className={`w-2 h-2 rounded-full bg-${strength.color} shadow-[0_0_10px_currentColor]`} />
+                 <div className={`w-2 h-2 rounded-full ${strength.dotClass} shadow-[0_0_10px_currentColor]`} />
                  <span className="text-sm font-bold text-white/90">{strength.label}</span>
               </div>
             ))}

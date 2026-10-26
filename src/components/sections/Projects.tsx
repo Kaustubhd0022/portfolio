@@ -79,37 +79,45 @@ export const Projects = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {projects.map((project, index) => (
-          <motion.a
+          <motion.div
             key={project.title}
-            href={project.link || '#'}
-            target={project.link ? "_blank" : undefined}
-            rel={project.link ? "noopener noreferrer" : undefined}
-            onClick={(e) => {
-              if (!project.link) {
-                 e.preventDefault();
-                 alert('Coming Soon!');
-              }
-            }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            className={`group relative flex flex-col h-full ${project.link ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className="group relative flex flex-col h-full"
           >
             {/* Card Content Container */}
             <div className="glass-card rounded-[2rem] overflow-hidden flex flex-col h-full border border-white/5 group-hover:border-white/20 transition-all duration-500 shadow-2xl">
               
               {/* Thumbnail with 16:9 Aspect Ratio */}
               <div className="relative aspect-video w-full overflow-hidden bg-surface">
-                <Image 
-                  src={project.image} 
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"
-                />
+                {project.link ? (
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label={`Open live prototype of ${project.title}`}
+                    className="block w-full h-full"
+                  >
+                    <Image 
+                      src={project.image} 
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[20%] group-hover:grayscale-0"
+                    />
+                  </a>
+                ) : (
+                  <Image 
+                    src={project.image} 
+                    alt={project.title}
+                    fill
+                    className="object-cover grayscale-[40%]"
+                  />
+                )}
                 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none" />
                 
                 {/* Impact Badge */}
                 <div className="absolute top-4 right-4 z-20">
@@ -119,12 +127,14 @@ export const Projects = () => {
                 </div>
                 
                 {/* Indicator Icon */}
-                <div className="absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                   <div className="px-4 py-2 rounded-full bg-accent-orange text-black font-black text-[10px] uppercase tracking-widest shadow-2xl flex items-center gap-1.5">
-                      Live
-                      <ArrowUpRight size={14} />
-                   </div>
-                </div>
+                {project.link && (
+                  <div className="absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 pointer-events-none">
+                     <div className="px-4 py-2 rounded-full bg-accent-orange text-black font-black text-[10px] uppercase tracking-widest shadow-2xl flex items-center gap-1.5">
+                        Live App
+                        <ArrowUpRight size={14} />
+                     </div>
+                  </div>
+                )}
               </div>
 
               <div className="p-8 flex flex-col flex-grow">
@@ -151,38 +161,41 @@ export const Projects = () => {
 
                 <div className="mt-auto flex flex-col gap-3">
                   {/* Primary CTA */}
-                  <div 
-                    className={`w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${project.link ? 'bg-white text-black hover:bg-accent-orange' : 'bg-white/5 text-white/40 cursor-not-allowed'}`}
-                  >
-                    {project.link ? (
-                      <>
-                        View Prototype
-                        <ExternalLink size={16} />
-                      </>
-                    ) : (
-                      'Coming Soon'
-                    )}
-                  </div>
+                  {project.link ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all bg-white text-black hover:bg-accent-orange shadow-lg"
+                    >
+                      View Live Prototype
+                      <ExternalLink size={16} />
+                    </a>
+                  ) : (
+                    <div className="w-full py-4 rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 bg-white/5 text-white/40 cursor-default border border-white/5">
+                      Spec in Progress
+                    </div>
+                  )}
                   
                   {/* Secondary CTA */}
                   <button 
-                    onClick={(e) => {
-                      e.stopPropagation()
+                    type="button"
+                    onClick={() => {
                       openPanel(
                         `Technical Deep Dive: ${project.title}`,
                         `How was this built? Explain the technical architecture and AI implementation of "${project.title}". Highlight the LLM choice, prompts, and system design.`,
                         `Context: Technical project analysis for ${project.title}.`
                       )
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-4 rounded-xl bg-accent-purple/10 border border-accent-purple/20 text-accent-purple text-sm font-bold uppercase tracking-widest hover:bg-accent-purple hover:text-white transition-all group"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-4 rounded-xl bg-accent-purple/10 border border-accent-purple/20 text-accent-purple text-sm font-bold uppercase tracking-widest hover:bg-accent-purple hover:text-white transition-all group cursor-pointer"
                   >
-                    <Sparkles size={16} className="group-hover:animate-spin" />
+                    <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
                     Technical Deep Dive
                   </button>
                 </div>
               </div>
             </div>
-          </motion.a>
+          </motion.div>
         ))}
       </div>
     </section>
