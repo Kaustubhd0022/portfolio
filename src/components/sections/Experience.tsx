@@ -2,16 +2,93 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Briefcase, Calendar, CheckCircle2, TrendingUp, Users, Target, Sparkles, ArrowRight } from 'lucide-react'
+import { Briefcase, Calendar, CheckCircle2, TrendingUp, Sparkles, ArrowRight, Zap, Target } from 'lucide-react'
+
+const expThemeMap: Record<string, {
+  nodeBg: string
+  text: string
+  badgeBg: string
+  badgeBorder: string
+  iconBg: string
+  cardBorder: string
+}> = {
+  'accent-purple': {
+    nodeBg: 'bg-purple-500',
+    text: 'text-purple-400',
+    badgeBg: 'bg-purple-500/20 text-purple-300',
+    badgeBorder: 'border-purple-500/40',
+    iconBg: 'bg-purple-500/10 text-purple-400',
+    cardBorder: 'border-purple-500/30 shadow-[0_0_50px_rgba(139,92,246,0.15)]',
+  },
+  'accent-orange': {
+    nodeBg: 'bg-orange-500',
+    text: 'text-orange-400',
+    badgeBg: 'bg-orange-500/20 text-orange-300',
+    badgeBorder: 'border-orange-500/40',
+    iconBg: 'bg-orange-500/10 text-orange-400',
+    cardBorder: 'border-orange-500/30 shadow-[0_0_50px_rgba(251,146,60,0.1)]',
+  },
+  'accent-blue': {
+    nodeBg: 'bg-sky-500',
+    text: 'text-sky-400',
+    badgeBg: 'bg-sky-500/20 text-sky-300',
+    badgeBorder: 'border-sky-500/40',
+    iconBg: 'bg-sky-500/10 text-sky-400',
+    cardBorder: 'border-sky-500/20',
+  },
+  'emerald-400': {
+    nodeBg: 'bg-emerald-400',
+    text: 'text-emerald-400',
+    badgeBg: 'bg-emerald-500/20 text-emerald-300',
+    badgeBorder: 'border-emerald-500/40',
+    iconBg: 'bg-emerald-500/10 text-emerald-400',
+    cardBorder: 'border-emerald-500/20',
+  },
+}
 
 const experiences = [
   {
-    role: 'Co-founder',
+    role: 'AI Product Manager',
+    company: "DV’s TattvaCo Originals LLP",
+    period: 'September 2026 – Present',
+    location: 'Remote / Mumbai',
+    description: 'Leading 0→1 development of an AI-native film development and production platform (tattvaCo / DVS) targeting a 97% reduction in story turnaround time.',
+    targetImpact: '30× faster story development, reduced creative iteration time, and accelerated delivery of pitch-ready stories.',
+    impact: [
+      'Leading 0→1 development of an AI-native film development and production platform.',
+      'Targeting a reduction in story development time from 30 days to 1 day (up to 97% faster) through AI-powered workflows.',
+      'Defining product vision, MVP strategy, roadmap, PRDs, and product success metrics.',
+      'Designing AI workflows for script refinement, character development, narrative continuity, and Hinglish dialogue generation.',
+      'Driving user journey optimization, AI output quality evaluation, and script fidelity requirements.',
+      'Translating creative and business needs into technical specifications, user stories, and acceptance criteria.',
+      'Aligning product priorities, technical dependencies, and delivery plans with cross-functional stakeholders.'
+    ],
+    highlight: true,
+    aiBadge: true,
+    badgeText: 'Current Role',
+    color: 'accent-purple'
+  },
+  {
+    role: 'AI Product Intern',
+    company: 'Product School',
+    period: 'Jan 2026',
+    description: 'Specialized in applying artificial intelligence to enhance product workflows and operational automation.',
+    impact: [
+      'Architected AI-driven product workflows to streamline discovery operations.',
+      'Applied generative AI in consumer product use cases to improve user engagement loops.',
+      'Contributed to research, prompt tuning, and feature definition for next-gen productivity tools.'
+    ],
+    highlight: false,
+    aiBadge: true,
+    badgeText: 'AI Specialization',
+    color: 'accent-blue'
+  },
+  {
+    role: 'Co-founder & Founding Product Manager',
     company: 'Wash On Wheels',
-    subRole: 'Founding Product Manager',
     period: 'Oct 2023 – Sep 2025',
     location: 'Sangli, MH',
-    description: 'Built the internal tech backbone for a doorstep car-wash operation: a customer-facing booking flow (app + WhatsApp) paired with an ops dashboard (Supabase/Firebase) for real-time scheduling and dispatch across a mobile fleet — replacing manual call/spreadsheet coordination as order volume scaled.',
+    description: 'Built the internal tech backbone for a doorstep car-wash operation: a customer-facing booking flow (app + WhatsApp) paired with an ops dashboard (Supabase/Firebase) for real-time fleet dispatch.',
     impact: [
       'Scaled demand 4–5x in under 4 months (2 → 8–10 orders/day/vehicle): validated PMF through 30+ customer discovery interviews, launched MVP in 3 months, and grew a 4–5 vehicle fleet to ₹2L+/month GMV.',
       'Used Firebase/Supabase analytics to track booking conversion, driver utilization, and repeat-order rate — prioritizing dispatch dashboard improvements that reduced manual reassignment time.',
@@ -20,21 +97,23 @@ const experiences = [
     ],
     highlight: true,
     aiBadge: false,
+    badgeText: '0→1 Founder',
     color: 'accent-orange'
   },
   {
-    role: 'AI Product Intern',
-    company: 'Product School',
-    period: 'Jan 2026',
-    description: 'Specialized in applying artificial intelligence to enhance product workflows.',
+    role: 'Product Manager Fellow',
+    company: 'NextLeap',
+    period: '2024',
+    description: 'Intensive fellowship focused on solving complex, real-world product problems using structured frameworks.',
     impact: [
-      'Worked on AI-driven product workflows to streamline operations.',
-      'Applied generative AI in product use cases to improve user engagement.',
-      'Contributed to research and feature definition for next-gen tools.'
+      'Built detailed PRDs and conceptualized MVPs for consumer-tech products (Zomato, Flipkart).',
+      'Utilized RICE and ICE frameworks for rigorous feature prioritization against business constraints.',
+      'Defined KPIs, north-star metrics, and behavioral cohort funnels to track holistic product success.'
     ],
     highlight: false,
-    aiBadge: true,
-    color: 'accent-purple'
+    aiBadge: false,
+    badgeText: 'Fellowship',
+    color: 'emerald-400'
   },
   {
     role: 'Founder',
@@ -49,21 +128,8 @@ const experiences = [
     ],
     highlight: false,
     aiBadge: false,
+    badgeText: 'Founder',
     color: 'accent-blue'
-  },
-  {
-    role: 'Product Manager Fellow',
-    company: 'NextLeap',
-    period: '2024',
-    description: 'Intensive fellowship focused on solving real-world product problems.',
-    impact: [
-      'Built detailed PRDs and conceptualized MVPs for consumer-tech products.',
-      'Utilized RICE/ICE frameworks for rigorous feature prioritization.',
-      'Defined KPIs and north-star metrics to track holistic product success.'
-    ],
-    highlight: false,
-    aiBadge: false,
-    color: 'green-400'
   }
 ]
 
@@ -79,7 +145,7 @@ export const Experience = () => {
           Impact & <span className="text-accent-purple">Ownership</span>
         </h2>
         <p className="text-secondary text-lg max-w-2xl">
-          A track record of building products from 0-to-1 and driving measurable business growth.
+          A track record of building products from 0-to-1, architecting AI workflows, and driving measurable business growth.
         </p>
       </div>
 
@@ -91,100 +157,100 @@ export const Experience = () => {
         <div className="absolute left-4 top-0 bottom-0 w-px bg-white/10 md:hidden" />
 
         <div className="space-y-16">
-          {experiences.map((exp, index) => (
-            <div key={exp.role} className="relative">
-              {/* Timeline Node */}
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                className={`absolute left-0.5 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-4 border-[#0B0F19] bg-${exp.color} z-10 hidden md:block shadow-[0_0_20px_rgba(139,92,246,0.3)]`}
-              />
-              
-              {/* Mobile Node */}
-              <div className={`absolute left-0 w-8 h-8 rounded-full border-4 border-[#0B0F19] bg-${exp.color} z-10 md:hidden shadow-[0_0_20px_rgba(139,92,246,0.3)]`} />
+          {experiences.map((exp, index) => {
+            const theme = expThemeMap[exp.color] || expThemeMap['accent-purple']
+            return (
+              <div key={`${exp.company}-${exp.period}`} className="relative">
+                {/* Timeline Node Desktop */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  className={`absolute left-0.5 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-4 border-[#0B0F19] ${theme.nodeBg} z-10 hidden md:block shadow-[0_0_20px_rgba(139,92,246,0.3)]`}
+                />
+                
+                {/* Mobile Node */}
+                <div className={`absolute left-0 w-8 h-8 rounded-full border-4 border-[#0B0F19] ${theme.nodeBg} z-10 md:hidden shadow-[0_0_20px_rgba(139,92,246,0.3)]`} />
 
-              <div className={`flex flex-col md:flex-row items-center w-full ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                <div className="w-full md:w-1/2 md:px-12 ml-10 md:ml-0">
-                  <motion.div
-                    initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.02 }}
-                    className={`glass-card p-8 md:p-10 rounded-[2rem] border border-white/5 bg-[#0B0F19]/50 backdrop-blur-xl transition-all duration-300 ${exp.highlight ? 'border-accent-purple/30 shadow-[0_0_50px_rgba(139,92,246,0.1)]' : ''}`}
-                  >
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex flex-wrap items-center gap-2 text-white/50 font-black text-[10px] uppercase tracking-widest">
-                        <Calendar size={14} className={`text-${exp.color}`} />
-                        {exp.period}
-                        {/* @ts-ignore */}
-                        {exp.location && (
-                          <>
-                            <span className="opacity-50">•</span>
-                            {/* @ts-ignore */}
-                            <span>{exp.location}</span>
-                          </>
-                        )}
-                      </div>
-                      <div className="flex gap-2">
-                        {exp.highlight && (
-                          <span className={`px-3 py-1 rounded-full bg-${exp.color}/20 text-${exp.color} text-[10px] font-black uppercase tracking-widest border border-${exp.color}/30 shadow-[0_0_15px_rgba(255,107,0,0.2)]`}>
-                            Co-founder
-                          </span>
-                        )}
-                        {exp.aiBadge && (
-                          <span className={`px-3 py-1 rounded-full bg-${exp.color}/20 text-${exp.color} text-[10px] font-black uppercase tracking-widest border border-${exp.color}/30 shadow-[0_0_15px_rgba(139,92,246,0.2)] flex items-center gap-1.5`}>
-                            <Sparkles size={10} />
-                            AI Focus
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    <h3 className="text-3xl font-black text-white mb-2 leading-tight">
-                      {exp.role}
-                    </h3>
-                    <div className="mb-4">
-                      <p className="text-accent-purple text-lg font-bold">
-                        {exp.company}
-                      </p>
-                      {/* @ts-ignore */}
-                      {exp.subRole && (
-                        <p className="text-white/70 font-medium text-base mt-1">
-                          {/* @ts-ignore */}
-                          {exp.subRole}
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="flex items-start gap-3 mb-8">
-                      <div className={`mt-1 flex items-center justify-center text-${exp.color} shrink-0`}>
-                        <ArrowRight size={18} />
-                      </div>
-                      <p className="text-secondary text-base font-medium">
-                        {exp.description}
-                      </p>
-                    </div>
-
-                    <div className="space-y-4">
-                      {exp.impact.map((point) => (
-                        <div key={point} className="flex items-start gap-4">
-                          <div className={`w-5 h-5 rounded-full bg-${exp.color}/10 flex items-center justify-center text-${exp.color} shrink-0 mt-1`}>
-                            <CheckCircle2 size={12} />
-                          </div>
-                          <p className="text-white/80 text-sm leading-relaxed">
-                            {point}
-                          </p>
+                <div className={`flex flex-col md:flex-row items-center w-full ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                  <div className="w-full md:w-1/2 md:px-12 ml-10 md:ml-0">
+                    <motion.div
+                      initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, ease: 'easeOut' }}
+                      viewport={{ once: true }}
+                      whileHover={{ scale: 1.01 }}
+                      className={`glass-card p-8 md:p-10 rounded-[2rem] border border-white/10 bg-[#0B0F19]/60 backdrop-blur-xl transition-all duration-300 ${exp.highlight ? theme.cardBorder : ''}`}
+                    >
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="flex flex-wrap items-center gap-2 text-white/50 font-black text-[10px] uppercase tracking-widest">
+                          <Calendar size={14} className={theme.text} />
+                          <span>{exp.period}</span>
+                          {exp.location && (
+                            <>
+                              <span className="opacity-50">•</span>
+                              <span>{exp.location}</span>
+                            </>
+                          )}
                         </div>
-                      ))}
-                    </div>
-                  </motion.div>
+                        <div className="flex gap-2">
+                          {exp.badgeText && (
+                            <span className={`px-3 py-1 rounded-full ${theme.badgeBg} text-[10px] font-black uppercase tracking-widest border ${theme.badgeBorder} flex items-center gap-1.5`}>
+                              {exp.aiBadge && <Sparkles size={10} />}
+                              {exp.badgeText}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <h3 className="text-3xl font-black text-white mb-2 leading-tight">
+                        {exp.role}
+                      </h3>
+                      <div className="mb-4">
+                        <p className={`${theme.text} text-lg font-bold`}>
+                          {exp.company}
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-start gap-3 mb-6">
+                        <div className={`mt-1 flex items-center justify-center ${theme.text} shrink-0`}>
+                          <ArrowRight size={18} />
+                        </div>
+                        <p className="text-secondary text-base font-medium leading-relaxed">
+                          {exp.description}
+                        </p>
+                      </div>
+
+                      {/* Highlighted Target Impact Banner */}
+                      {exp.targetImpact && (
+                        <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-purple-500/15 via-orange-500/10 to-transparent border border-purple-500/30 flex items-start gap-3">
+                          <Target size={18} className="text-accent-purple shrink-0 mt-0.5" />
+                          <div>
+                            <span className="text-[10px] font-black text-accent-purple uppercase tracking-widest block mb-0.5">Target Impact</span>
+                            <p className="text-white font-semibold text-xs leading-relaxed">{exp.targetImpact}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="space-y-4">
+                        {exp.impact.map((point) => (
+                          <div key={point} className="flex items-start gap-4">
+                            <div className={`w-5 h-5 rounded-full ${theme.iconBg} flex items-center justify-center shrink-0 mt-1`}>
+                              <CheckCircle2 size={12} />
+                            </div>
+                            <p className="text-white/80 text-sm leading-relaxed">
+                              {point}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </div>
+                  <div className="hidden md:block w-1/2" />
                 </div>
-                <div className="hidden md:block w-1/2" />
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
